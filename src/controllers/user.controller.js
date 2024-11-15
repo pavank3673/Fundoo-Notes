@@ -15,3 +15,28 @@ export const registerUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const loginUser = async (req, res, next) => {
+  try {
+    const data = await UserService.getUserByEmail(req.body.email);
+    let isEqual = false;
+    if (data != null) {
+      isEqual = await bcrypt.compare(req.body.password, data.password);
+    }
+    if (isEqual) {
+      res.status(HttpStatus.OK).json({
+        code: HttpStatus.OK,
+        data: data,
+        message: 'User logged in successfully'
+      });
+    } else {
+      res.status(HttpStatus.NOT_FOUND).json({
+        code: HttpStatus.NOT_FOUND,
+        data: [],
+        message: 'Invalid credentials'
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
