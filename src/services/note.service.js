@@ -6,3 +6,12 @@ export const newNote = async (body) => {
   const data = await Note.create(body);
   return data;
 };
+
+export const getAllNotes = async (body) => {
+  const data = await Note.findAll({
+    where: {
+      UserId: body.UserId
+    }
+  });
+  return data;
+};

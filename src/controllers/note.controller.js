@@ -16,3 +16,19 @@ export const newNote = async (req, res, next) => {
     });
   }
 };
+
+export const getAllNotes = async (req, res, next) => {
+  try {
+    const data = await NoteService.getAllNotes(req.body);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'All notes fetched successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+      code: HttpStatus.BAD_REQUEST,
+      message: `${error}`
+    });
+  }
+};
