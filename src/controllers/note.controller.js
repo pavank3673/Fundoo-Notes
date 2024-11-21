@@ -64,3 +64,19 @@ export const updateNote = async (req, res, next) => {
     });
   }
 };
+
+export const deleteNote = async (req, res, next) => {
+  try {
+    await NoteService.deleteNote(req.params.id);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: [],
+      message: 'Note deleted successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.NOT_FOUND).json({
+      code: HttpStatus.NOT_FOUND,
+      message: `${error}`
+    });
+  }
+};

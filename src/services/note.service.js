@@ -27,3 +27,8 @@ export const updateNote = async (id, body) => {
   });
   return body;
 };
+
+export const deleteNote = async (id) => {
+  await Note.destroy({ where: { noteId: id } });
+  return '';
+};
