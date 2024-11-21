@@ -15,3 +15,8 @@ export const getAllNotes = async (body) => {
   });
   return data;
 };
+
+export const getNote = async (id) => {
+  const data = await Note.findByPk(id);
+  return data;
+};
