@@ -20,3 +20,10 @@ export const getNote = async (id) => {
   const data = await Note.findByPk(id);
   return data;
 };
+
+export const updateNote = async (id, body) => {
+  await Note.update(body, {
+    where: { noteId: id }
+  });
+  return body;
+};
