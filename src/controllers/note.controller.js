@@ -80,3 +80,21 @@ export const deleteNote = async (req, res, next) => {
     });
   }
 };
+
+export const toggleArchivedNote = async (req, res, next) => {
+  try {
+    const note = await NoteService.getNote(req.params.id);
+    const data = await NoteService.toggleArchivedNote(note);
+
+    res.status(HttpStatus.ACCEPTED).json({
+      code: HttpStatus.ACCEPTED,
+      data: data,
+      message: 'Note updated successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+      code: HttpStatus.BAD_REQUEST,
+      message: `${error}`
+    });
+  }
+};

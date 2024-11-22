@@ -18,4 +18,8 @@ router.put('/:id', userAuth, updateNoteValidator, noteController.updateNote);
 
 router.delete('/:id', userAuth, noteController.deleteNote);
 
+router.patch('/:id/isArchived', userAuth, noteController.toggleArchivedNote);
+
+router.patch('/:id/isTrashed', userAuth, noteController.toggleTrashedNote);
+
 export default router;

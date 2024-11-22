@@ -32,3 +32,14 @@ export const deleteNote = async (id) => {
   await Note.destroy({ where: { noteId: id } });
   return '';
 };
+
+export const toggleArchivedNote = async (note) => {
+  note.isArchive = note.isArchive ? false : true;
+  const result = await Note.update(
+    { isArchive: note.isArchive },
+    {
+      where: { noteId: note.noteId }
+    }
+  );
+  return result;
+};
