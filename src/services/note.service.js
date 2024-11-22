@@ -43,3 +43,14 @@ export const toggleArchivedNote = async (note) => {
   );
   return result;
 };
+
+export const toggleTrashedNote = async (note) => {
+  note.isTrash = note.isTrash ? false : true;
+  const result = await Note.update(
+    { isTrash: note.isTrash },
+    {
+      where: { noteId: note.noteId }
+    }
+  );
+  return result;
+};
