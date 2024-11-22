@@ -15,8 +15,9 @@ export const getUserByEmail = async (req) => {
   const data = await User.findOne({ where: { email: req.email } });
   if (data != null) {
     if (await bcrypt.compare(req.password, data.password)) {
+      console.log('data.userId--------' + data.userId);
       return jwt.sign(
-        { id: data.id, email: data.email },
+        { id: data.userId, email: data.email },
         process.env.ACCESS_TOKEN_SECRET
       );
     } else {

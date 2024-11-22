@@ -10,7 +10,10 @@ export const registerUser = async (req, res, next) => {
       message: 'User registered successfully'
     });
   } catch (error) {
-    next(error);
+    res.status(HttpStatus.CONFLICT).json({
+      code: HttpStatus.CONFLICT,
+      message: `${error}`
+    });
   }
 };
 
