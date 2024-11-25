@@ -27,3 +27,18 @@ export const getUserByEmail = async (req) => {
     throw new Error('Invalid Email');
   }
 };
+
+export const forgotPasswordUser = async (body) => {
+  const data = await User.findOne({ where: { email: body.email } });
+  if (data != null) {
+    return jwt.sign(
+      {
+        id: data.userId,
+        email: data.email
+      },
+      process.env.ACCESS_TOKEN_FORGOT_PASSWORD
+    );
+  } else {
+    throw new Error('Invalid Email');
+  }
+};
