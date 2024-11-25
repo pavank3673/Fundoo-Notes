@@ -49,3 +49,33 @@ export const forgotPasswordUserValidator = (req, res, next) => {
     next();
   }
 };
+
+export const resetPasswordUserValidator = (req, res, next) => {
+  const reqBodyschema = Joi.object({
+    password: Joi.string().required()
+  });
+  const reqHeadersSchema = Joi.object({
+    authorization: Joi.string().required(),
+    'content-type': Joi.string(),
+    'user-agent': Joi.string(),
+    accept: Joi.string(),
+    'postman-token': Joi.string(),
+    host: Joi.string(),
+    'accept-encoding': Joi.string(),
+    connection: Joi.string(),
+    'content-length': Joi.string()
+  });
+  const reqBodyValidation = reqBodyschema.validate(req.body);
+  const reqHeadersValidation = reqHeadersSchema.validate(req.headers);
+
+  if (reqHeadersValidation.error || reqBodyValidation.error) {
+    return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
+      code: HttpStatus.UNPROCESSABLE_ENTITY,
+      message: reqHeadersValidation.error
+        ? reqHeadersValidation.error.message
+        : reqBodyValidation.error.message
+    });
+  } else {
+    next();
+  }
+};

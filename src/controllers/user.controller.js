@@ -50,3 +50,19 @@ export const forgotPasswordUser = async (req, res, next) => {
     });
   }
 };
+
+export const resetPasswordUser = async (req, res, next) => {
+  try {
+    const data = await UserService.resetPasswordUser(req.body);
+    res.status(HttpStatus.ACCEPTED).json({
+      code: HttpStatus.ACCEPTED,
+      data: data,
+      message: 'Password updated successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+      code: HttpStatus.BAD_REQUEST,
+      message: `${error}`
+    });
+  }
+};

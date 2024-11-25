@@ -42,3 +42,14 @@ export const forgotPasswordUser = async (body) => {
     throw new Error('Invalid Email');
   }
 };
+
+export const resetPasswordUser = async (body) => {
+  body.password = await bcrypt.hash(body.password, 10);
+  const data = await User.update(
+    { password: body.password },
+    {
+      where: { userId: body.userId }
+    }
+  );
+  return data;
+};

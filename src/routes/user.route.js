@@ -3,8 +3,10 @@ import * as userController from '../controllers/user.controller';
 import {
   registerUserValidator,
   loginUserValidator,
-  forgotPasswordUserValidator
+  forgotPasswordUserValidator,
+  resetPasswordUserValidator
 } from '../validators/user.validator';
+import { userAuthResetPassword } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
@@ -16,6 +18,13 @@ router.get(
   '/forgot-password',
   forgotPasswordUserValidator,
   userController.forgotPasswordUser
+);
+
+router.patch(
+  '/reset-password',
+  resetPasswordUserValidator,
+  userAuthResetPassword,
+  userController.resetPasswordUser
 );
 
 export default router;
