@@ -4,7 +4,6 @@ import { userAuth } from '../middlewares/auth.middleware';
 import {
   newNoteValidator,
   updateNoteValidator,
-  getAllNotesValidator,
   noteByIdValidator
 } from '../validators/note.validator';
 
@@ -12,7 +11,7 @@ const router = express.Router();
 
 router.post('', newNoteValidator, userAuth, noteController.newNote);
 
-router.get('', getAllNotesValidator, userAuth, noteController.getAllNotes);
+router.get('', userAuth, noteController.getAllNotes);
 
 router.get('/:id', noteByIdValidator, userAuth, noteController.getNote);
 
