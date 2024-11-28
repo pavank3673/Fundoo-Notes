@@ -53,7 +53,7 @@
       }
     },
     "/users/login": {
-      "get": {
+      "post": {
         "tags": ["User"],
         "description": "User login",
         "requestBody": {

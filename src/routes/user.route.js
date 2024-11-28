@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post('/', registerUserValidator, userController.registerUser);
 
-router.get('/login', loginUserValidator, userController.loginUser);
+router.post('/login', loginUserValidator, userController.loginUser);
 
 router.get(
   '/forgot-password',
