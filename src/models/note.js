@@ -4,7 +4,7 @@ import sequelize from '../config/database';
 const User = require('./user')(sequelize, DataTypes);
 module.exports = (sequelize, Datatypes) => {
   class Note extends Model {
-    static associate(models) {}
+    static associate() {}
   }
 
   Note.init(

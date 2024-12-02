@@ -14,17 +14,8 @@ router.post('/', registerUserValidator, userController.registerUser);
 
 router.post('/login', loginUserValidator, userController.loginUser);
 
-router.get(
-  '/forgot-password',
-  forgotPasswordUserValidator,
-  userController.forgotPasswordUser
-);
+router.get('/forgot-password', forgotPasswordUserValidator, userController.forgotPasswordUser);
 
-router.patch(
-  '/reset-password',
-  resetPasswordUserValidator,
-  userAuthResetPassword,
-  userController.resetPasswordUser
-);
+router.patch('/reset-password', resetPasswordUserValidator, userAuthResetPassword, userController.resetPasswordUser);
 
 export default router;

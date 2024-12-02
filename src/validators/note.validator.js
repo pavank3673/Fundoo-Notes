@@ -8,7 +8,7 @@ export const newNoteValidator = (req, res, next) => {
     color: Joi.string(),
     UserId: Joi.number()
   });
-  const { error, value } = schema.validate(req.body);
+  const { error } = schema.validate(req.body);
   if (error) {
     return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
       code: HttpStatus.UNPROCESSABLE_ENTITY,
@@ -34,15 +34,10 @@ export const updateNoteValidator = (req, res, next) => {
   const reqParamsValidation = reqParamsSchema.validate(req.params);
   const reqBodyValidation = reqBodySchema.validate(req.body);
 
-  if (
-    reqParamsValidation.error ||
-    reqBodyValidation.error
-  ) {
+  if (reqParamsValidation.error || reqBodyValidation.error) {
     return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({
       code: HttpStatus.UNPROCESSABLE_ENTITY,
-      message: reqParamsValidation.error
-        ? reqParamsValidation.error.message
-        : reqBodyValidation.error.message
+      message: reqParamsValidation.error ? reqParamsValidation.error.message : reqBodyValidation.error.message
     });
   } else {
     next();

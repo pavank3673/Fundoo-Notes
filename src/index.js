@@ -8,11 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../src/swagger/openapi.json';
 
 import routes from './routes';
-import {
-  appErrorHandler,
-  genericErrorHandler,
-  notFound
-} from './middlewares/error.middleware';
+import { appErrorHandler, genericErrorHandler, notFound } from './middlewares/error.middleware';
 import logger, { logStream } from './config/logger';
 
 import morgan from 'morgan';

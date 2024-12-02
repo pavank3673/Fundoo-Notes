@@ -13,13 +13,10 @@ export const registerUser = async (body) => {
 
 export const getUserByEmail = async (req) => {
   const data = await User.findOne({ where: { email: req.email } });
-  if (data != null) {
+  if (data !== null) {
     if (await bcrypt.compare(req.password, data.password)) {
       console.log('data.userId--------' + data.userId);
-      return jwt.sign(
-        { id: data.userId, email: data.email },
-        process.env.ACCESS_TOKEN_SECRET
-      );
+      return jwt.sign({ id: data.userId, email: data.email }, process.env.ACCESS_TOKEN_SECRET);
     } else {
       throw new Error('Invalid Password');
     }
@@ -30,7 +27,7 @@ export const getUserByEmail = async (req) => {
 
 export const forgotPasswordUser = async (body) => {
   const data = await User.findOne({ where: { email: body.email } });
-  if (data != null) {
+  if (data !== null) {
     return jwt.sign(
       {
         id: data.userId,

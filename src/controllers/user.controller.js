@@ -2,7 +2,7 @@ import HttpStatus from 'http-status-codes';
 import * as UserService from '../services/user.service';
 import { sendMail } from '../utils/mailHelper.js';
 
-export const registerUser = async (req, res, next) => {
+export const registerUser = async (req, res) => {
   try {
     const data = await UserService.registerUser(req.body);
     res.status(HttpStatus.CREATED).json({
@@ -18,7 +18,7 @@ export const registerUser = async (req, res, next) => {
   }
 };
 
-export const loginUser = async (req, res, next) => {
+export const loginUser = async (req, res) => {
   try {
     const token = await UserService.getUserByEmail(req.body);
     res.status(HttpStatus.OK).json({
@@ -34,7 +34,7 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
-export const forgotPasswordUser = async (req, res, next) => {
+export const forgotPasswordUser = async (req, res) => {
   try {
     const token = await UserService.forgotPasswordUser(req.body);
     const info = await sendMail(req.body.email, token);
@@ -51,7 +51,7 @@ export const forgotPasswordUser = async (req, res, next) => {
   }
 };
 
-export const resetPasswordUser = async (req, res, next) => {
+export const resetPasswordUser = async (req, res) => {
   try {
     const data = await UserService.resetPasswordUser(req.body);
     res.status(HttpStatus.ACCEPTED).json({

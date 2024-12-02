@@ -42,10 +42,7 @@ export const userAuthResetPassword = async (req, res, next) => {
       };
     bearerToken = bearerToken.split(' ')[1];
 
-    const result = jwt.verify(
-      bearerToken,
-      process.env.ACCESS_TOKEN_FORGOT_PASSWORD
-    );
+    const result = jwt.verify(bearerToken, process.env.ACCESS_TOKEN_FORGOT_PASSWORD);
     req.body.userId = result.id;
     console.log('req.body.userId' + req.body.userId);
     next();
