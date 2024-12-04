@@ -10,6 +10,7 @@ import swaggerDocument from '../src/swagger/openapi.json';
 import routes from './routes';
 import { appErrorHandler, genericErrorHandler, notFound } from './middlewares/error.middleware';
 import logger, { logStream } from './config/logger';
+import { client } from './middlewares/redis.middleware';
 
 import morgan from 'morgan';
 
@@ -23,6 +24,8 @@ app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('combined', { stream: logStream }));
+
+client.connect();
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(`/api/${api_version}`, routes());
