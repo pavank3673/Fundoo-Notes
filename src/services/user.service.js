@@ -4,11 +4,21 @@ import sequelize, { DataTypes } from '../config/database';
 const User = require('../models/user')(sequelize, DataTypes);
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import amqplib from 'amqplib';
 
 export const registerUser = async (body) => {
   body.password = await bcrypt.hash(body.password, 10);
   const data = await User.create(body);
+  notifyRegisteredUser(data.firstName, data.email);
   return data;
+};
+
+const notifyRegisteredUser = async (username, email) => {
+  console.log('inside fundoo-notes publisher');
+  const connection = await amqplib.connect('amqp://localhost');
+  const channel = await connection.createChannel();
+  await channel.assertQueue('user_queue');
+  channel.sendToQueue('user_queue', Buffer.from(`${username} ${email}`));
 };
 
 export const getUserByEmail = async (req) => {
